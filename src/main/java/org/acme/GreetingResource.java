@@ -1,5 +1,6 @@
 package org.acme;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -20,35 +21,40 @@ public class GreetingResource {
     @Path("/calculate/{numOne}/{operation}/{numTwo}")
     @Produces(MediaType.TEXT_PLAIN)
     public String calc(
-        @PathParam(name="numOne")
-        String numOneStr,
-        @PathParam(name="operation")
-        String operation,
-        @PathParam(name="numTwo")
-        String numTwoStr
+            @PathParam("numOne")
+            String numOneStr,
+            @PathParam("operation")
+            String operation,
+            @PathParam("numTwo")
+            String numTwoStr
     ) {
-        double numOne = Double.parse(numOneStr);
-        double numTwo = Convert.ToDouble(numTwoStr);
+        double numOne;
+        double numTwo;
         double result;
-            
-            switch(actionStr) 
-            {
-              case "ADD":
+        try {
+            numOne = Double.parseDouble(numOneStr);
+            numTwo = Double.parseDouble(numTwoStr);
+        } catch (NullPointerException | NumberFormatException e){
+            throw new IllegalArgumentException("Number(s) were not parseable: " + e.getMessage(), e);
+        }
+
+        switch (operation) {
+            case "ADD":
                 result = numOne + numTwo;
                 break;
-              case "SUBTRACT":
-                result = numOne + numTwo;
+            case "SUBTRACT":
+                result = numOne - numTwo;
                 break;
-              case "MULTIPLY":
+            case "MULTIPLY":
                 result = numOne * numTwo;
                 break;
-              case "DIVIDE":
+            case "DIVIDE":
                 result = numOne / numTwo;
                 break;
-              default:
-                return BadRequest("Bad Action Given.");
-            }
-            
-            return Ok(result);
+            default:
+                throw new IllegalArgumentException("Bad operation Given.");
+        }
+
+        return String.valueOf(result);
     }
 }
