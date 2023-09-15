@@ -2,7 +2,7 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
-        mavenLocal()
+//        mavenLocal()
     }
     plugins {
         id "${quarkusPluginId}" version "${quarkusPluginVersion}"
