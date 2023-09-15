@@ -16,8 +16,8 @@ pipeline {
         }
         stage("Docker Build") {
             steps {
-                sleep(300)
-                sh './gradlew clean build --debug'
+//                sleep(300)
+                sh './gradlew clean build --debug --no-daemon'
             }
         }
     }
