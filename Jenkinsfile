@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'java-builder'
+        label 'maven'
     }
 
     stages {
