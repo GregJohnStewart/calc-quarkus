@@ -31,7 +31,6 @@ public class GreetingResource {
     ) {
         double numOne;
         double numTwo;
-        double result;
         try {
             numOne = Double.parseDouble(numOneStr);
             numTwo = Double.parseDouble(numTwoStr);
@@ -39,14 +38,23 @@ public class GreetingResource {
             throw new IllegalArgumentException("Number(s) were not parseable: " + e.getMessage(), e);
         }
 
-        return String.valueOf(
-                switch (operation) {
-                    case "ADD" -> numOne + numTwo;
-                    case "SUBTRACT" -> numOne - numTwo;
-                    case "MULTIPLY" -> numOne * numTwo;
-                    case "DIVIDE" -> numOne / numTwo;
-                    default -> throw new IllegalArgumentException("Bad operation Given.");
-                }
-        );
+        double result;
+        switch (operation) {
+            case "ADD":
+                result = numOne + numTwo;
+                break;
+            case "SUBTRACT":
+                result = numOne - numTwo;
+                break;
+            case "MULTIPLY":
+                result = numOne * numTwo;
+                break;
+            case "DIVIDE":
+                result = numOne / numTwo;
+                break;
+            default:
+                throw new IllegalArgumentException("Bad operation Given.");
+        }
+        return String.valueOf(result);
     }
 }
