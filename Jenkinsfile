@@ -16,7 +16,9 @@ pipeline {
         }
         stage("Docker Build") {
             steps {
-               sleep(300)
+                //sleep(300)
+                sh 'java --version'
+                sh 'javac --version'
                 sh './gradlew clean build'
             }
         }
