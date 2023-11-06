@@ -1,6 +1,8 @@
 package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.acme.interfaces.message.CalculatorMessenger;
 import org.acme.service.CalculationResult.CalculationResultBuilder;
 
 import java.math.BigDecimal;
@@ -10,6 +12,9 @@ import static org.acme.service.CalcOp.*;
 
 @ApplicationScoped
 public class CalculatorService {
+
+    @Inject
+    CalculatorMessenger messenger;
 
     public CalculationResult calculate(CalculationRequest request){
         CalculationResultBuilder<?, ?> resultBuilder = CalculationResult.fromRequest(request);
@@ -25,6 +30,9 @@ public class CalculatorService {
                     case DIV -> numOne.divide(numTwo, RoundingMode.UNNECESSARY);
                 }
         );
-        return resultBuilder.build();
+
+        CalculationResult result = resultBuilder.build();
+        this.messenger.sendResult(result);
+        return result;
     }
 }
