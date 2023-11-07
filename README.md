@@ -4,6 +4,8 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+https://access.redhat.com/documentation/en-us/red_hat_build_of_quarkus/quarkus-3.2/guide/85e494b4-4e47-4831-8294-212c4c838c7b#_36a752a5-3dfe-4268-bb1f-f4148989d292
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
