@@ -2,6 +2,7 @@ package org.acme.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.acme.interfaces.message.CalculatorMessenger;
 import org.acme.service.CalculationResult.CalculationResultBuilder;
 
@@ -10,6 +11,7 @@ import java.math.RoundingMode;
 
 import static org.acme.service.CalcOp.*;
 
+@Slf4j
 @ApplicationScoped
 public class CalculatorService {
 
@@ -17,6 +19,7 @@ public class CalculatorService {
     CalculatorMessenger messenger;
 
     public CalculationResult calculate(CalculationRequest request){
+        log.info("Calculating {}", request);
         CalculationResultBuilder<?, ?> resultBuilder = CalculationResult.fromRequest(request);
 
         BigDecimal numOne = request.getNumOne();
@@ -32,6 +35,7 @@ public class CalculatorService {
         );
 
         CalculationResult result = resultBuilder.build();
+        log.info("Calculated result.");
         this.messenger.sendResult(result);
         return result;
     }

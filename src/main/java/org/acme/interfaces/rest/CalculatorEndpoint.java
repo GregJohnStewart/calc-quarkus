@@ -4,6 +4,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import lombok.extern.slf4j.Slf4j;
 import org.acme.service.CalcOp;
 import org.acme.service.CalculationRequest;
 import org.acme.service.CalculationResult;
@@ -11,6 +12,7 @@ import org.acme.service.CalculatorService;
 
 import java.math.BigDecimal;
 
+@Slf4j
 @Path("/calculate")
 @RequestScoped
 public class CalculatorEndpoint {
@@ -29,6 +31,7 @@ public class CalculatorEndpoint {
             @PathParam("numTwo")
             BigDecimal numTwo
     ) {
+        log.info("Got path based request to calculate");
         return this.calculatorService.calculate(
                 CalculationRequest.builder()
                         .numOne(numOne)
@@ -44,6 +47,7 @@ public class CalculatorEndpoint {
     public CalculationResult calc(
             CalculationRequest request
     ) {
+        log.info("Got object based request to calculate");
         return this.calculatorService.calculate(request);
     }
 }
