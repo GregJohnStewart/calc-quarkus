@@ -37,7 +37,8 @@ public class CalculatorEndpoint {
                         .numOne(numOne)
                         .op(operation)
                         .numTwo(numTwo)
-                        .build()
+                        .build(),
+                true
         );
     }
 
@@ -48,6 +49,6 @@ public class CalculatorEndpoint {
             CalculationRequest request
     ) {
         log.info("Got object based request to calculate");
-        return this.calculatorService.calculate(request);
+        return this.calculatorService.calculate(request, true);
     }
 }

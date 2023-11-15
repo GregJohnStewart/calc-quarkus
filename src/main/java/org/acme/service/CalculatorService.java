@@ -18,7 +18,7 @@ public class CalculatorService {
     @Inject
     CalculatorMessenger messenger;
 
-    public CalculationResult calculate(CalculationRequest request){
+    public CalculationResult calculate(CalculationRequest request, boolean sendOnQueue){
         log.info("Calculating {}", request);
         CalculationResultBuilder<?, ?> resultBuilder = CalculationResult.fromRequest(request);
 
@@ -36,7 +36,9 @@ public class CalculatorService {
 
         CalculationResult result = resultBuilder.build();
         log.info("Calculated result.");
-        this.messenger.sendResult(result);
+        if(sendOnQueue) {
+            this.messenger.sendResult(result);
+        }
         return result;
     }
 }

@@ -32,12 +32,13 @@ public class CalculatorMessenger {
     }
 
     @Incoming("calculator-requests")
+    @Outgoing("calculator-results")
     @Blocking
-    public void process(JsonObject requestJson) throws JsonProcessingException {
+    public CalculationResult process(JsonObject requestJson) throws JsonProcessingException {
         log.info("Got request from Queue: {}", requestJson);
         CalculationRequest request = requestJson.mapTo(CalculationRequest.class);
         //will send the result back via sendResult() above on its own
-        this.calculatorService.calculate(request);
+        return this.calculatorService.calculate(request, false);
     }
 
 }
