@@ -10,10 +10,7 @@ import jakarta.json.JsonObject;
 import org.acme.service.CalculationRequest;
 import org.acme.service.CalculationResult;
 import org.acme.service.CalculatorService;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
-import org.eclipse.microprofile.reactive.messaging.Incoming;
-import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import org.eclipse.microprofile.reactive.messaging.*;
 
 @ApplicationScoped
 public class CalculatorMessenger {
@@ -27,7 +24,7 @@ public class CalculatorMessenger {
     ObjectMapper mapper;
 
     public void sendResult(CalculationResult result){
-        this.quoteRequestEmitter.send(result);
+        this.quoteRequestEmitter.send(Message.of(result));
     }
 
     @Incoming("calculator-requests")
