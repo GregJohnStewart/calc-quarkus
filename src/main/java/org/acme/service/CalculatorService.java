@@ -30,7 +30,7 @@ public class CalculatorService {
                     case ADD -> numOne.add(numTwo);
                     case SUBTRACT -> numOne.subtract(numTwo);
                     case MULT -> numOne.multiply(numTwo);
-                    case DIV -> numOne.divide(numTwo, RoundingMode.UNNECESSARY);
+                    case DIV -> numOne.divide(numTwo, RoundingMode.HALF_UP);
                 }
         );
 
