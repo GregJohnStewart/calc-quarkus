@@ -24,7 +24,7 @@ commands:
   - id: build
     exec:
       component: tools
-      workingDir: ${PROJECTS_ROOT}/lombok-project-sample
+      workingDir: ${PROJECTS_ROOT}/
       commandLine: mvn clean install
       group:
         kind: build
